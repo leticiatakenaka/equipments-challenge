@@ -19,14 +19,15 @@ function Map() {
     googleMapsApiKey: apiKey,
   });
 
-  const [map, setMap] = React.useState(null);
-
   const equipmentsList = calculatesLatestDates();
 
   return isLoaded ? (
     <GoogleMap mapContainerStyle={containerStyle} center={center} zoom={12}>
       {equipmentsList.map((equipment) => (
-        <Marker position={{ lat: equipment.lat, lng: equipment.lon }} />
+        <Marker
+          key={equipment.id}
+          position={{ lat: equipment.lat, lng: equipment.lon }}
+        />
       ))}
     </GoogleMap>
   ) : (

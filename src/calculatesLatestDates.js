@@ -13,6 +13,7 @@ export function calculatesLatestDates() {
         date: positions[0].date,
         lat: positions[0].lat,
         lon: positions[0].lon,
+        id: equipamento,
       };
     }
 
@@ -23,6 +24,7 @@ export function calculatesLatestDates() {
           date: positions[j].date,
           lat: positions[j].lat,
           lon: positions[j].lon,
+          id: equipamento,
         };
       }
     }

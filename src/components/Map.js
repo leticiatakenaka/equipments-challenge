@@ -1,7 +1,8 @@
 import * as React from "react";
 import { GoogleMap, Marker, useJsApiLoader } from "@react-google-maps/api";
+
 import { apiKey } from "../apiKey";
-import { calculatesLatestDates } from "../calculatesLatestDates";
+import { getEquipmentsLastPosition } from "./getEquipmentsLastPosition";
 
 const containerStyle = {
   width: "400px",
@@ -16,17 +17,20 @@ const center = {
 function Map() {
   const { isLoaded } = useJsApiLoader({
     id: "google-map-script",
-    googleMapsApiKey: apiKey,
+    // googleMapsApiKey: apiKey,
   });
 
-  const equipmentsList = calculatesLatestDates();
+  const eqpPositions = getEquipmentsLastPosition();
 
   return isLoaded ? (
     <GoogleMap mapContainerStyle={containerStyle} center={center} zoom={12}>
-      {equipmentsList.map((equipment) => (
+      {eqpPositions.map((equipment, i) => (
         <Marker
-          key={equipment.id}
-          position={{ lat: equipment.lat, lng: equipment.lon }}
+          key={i}
+          position={{
+            lat: equipment.lastPosition.lat,
+            lng: equipment.lastPosition.lon,
+          }}
         />
       ))}
     </GoogleMap>

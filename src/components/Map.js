@@ -2,6 +2,7 @@ import * as React from "react";
 import { GoogleMap, Marker, useJsApiLoader } from "@react-google-maps/api";
 
 import { apiKey } from "../apiKey";
+import { equipmentPositionHistoryFile } from "../data/equipmentPositionHistory";
 import { getEquipmentsLastPosition } from "./getEquipmentsLastPosition";
 
 const containerStyle = {
@@ -20,7 +21,8 @@ function Map() {
     // googleMapsApiKey: apiKey,
   });
 
-  const eqpPositions = getEquipmentsLastPosition();
+  const equipamentos = equipmentPositionHistoryFile;
+  const eqpPositions = getEquipmentsLastPosition(equipamentos);
 
   return isLoaded ? (
     <GoogleMap mapContainerStyle={containerStyle} center={center} zoom={12}>

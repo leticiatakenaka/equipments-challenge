@@ -1,35 +1,13 @@
-import { equipmentPositionHistoryFile } from "../data/equipmentPositionHistory";
+import { getEquipmentLastPosition } from "./getEquipmentLastPosition";
 
-export function getEquipmentsLastPosition() {
-  let equipmentsList = [];
-
-  equipmentPositionHistoryFile.forEach((eqp) => {
-    let lastPosition = {
-      date: "",
-      lat: 0.0,
-      lon: 0.0,
-    };
-
-    let filteredListByEquipment = equipmentPositionHistoryFile.filter(
-      (history) => history.equipmentId === eqp.equipmentId
-    );
-
-    filteredListByEquipment.forEach((hist) => {
-      hist.positions.forEach((pos) => {
-        if (pos.date > lastPosition.date) {
-          lastPosition.date = pos.date;
-          lastPosition.lat = pos.lat;
-          lastPosition.lon = pos.lon;
-        }
-      });
+export function getEquipmentsLastPosition(equipamentos) {
+  let list = [];
+  equipamentos.forEach((equip) => {
+    list.push({
+      equipment: equip,
+      lastPosition: getEquipmentLastPosition(equip.equipmentId).lastPosition,
     });
-
-    let retEquipment = {
-      equipment: eqp.equipmentId,
-      lastPosition: lastPosition,
-    };
-
-    equipmentsList.push(retEquipment);
   });
-  return equipmentsList;
+  console.log(list);
+  return list;
 }

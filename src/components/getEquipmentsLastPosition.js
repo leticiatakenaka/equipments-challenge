@@ -8,6 +8,5 @@ export function getEquipmentsLastPosition(equipamentos) {
       lastPosition: getEquipmentLastPosition(equip.equipmentId).lastPosition,
     });
   });
-  console.log(list);
   return list;
 }

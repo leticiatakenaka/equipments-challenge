@@ -29,7 +29,7 @@ export function HistoryEquipmentDialog(props) {
         <MU.DialogTitle>{props.eqp.equipment}</MU.DialogTitle>
         <MU.DialogContent>
           <MU.TableContainer component={MU.Paper}>
-            <MU.Table sx={{ minWidth: 650 }} aria-label="simple table">
+            <MU.Table sx={{ minWidth: 300 }} aria-label="simple table">
               <MU.TableHead>
                 <MU.TableRow>
                   <MU.TableCell>Estado</MU.TableCell>

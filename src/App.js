@@ -1,8 +1,15 @@
+import styled from "styled-components";
 import Map from "./components/Map";
 
+const Container = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+`;
 function App() {
   return (
-    <div>
+    <Container>
       <Map />
       <ul>
         <li>
@@ -20,7 +27,7 @@ function App() {
           Operando
         </li>
       </ul>
-    </div>
+    </Container>
   );
 }
 

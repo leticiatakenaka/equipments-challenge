@@ -5,10 +5,12 @@ import { apiKey } from "../apiKey";
 import { equipmentPositionHistoryFile } from "../data/equipmentPositionHistory";
 import { getEquipmentsLastPosition } from "./getEquipmentsLastPosition";
 import { getEquipmentLastState } from "./getEquipmentLastState";
+import { getEquipmentLastStates } from "./getEquipmentHistory";
+import { HistoryEquipmentDialog } from "./HistoryEquipmentDialog";
 
 const containerStyle = {
-  width: "400px",
-  height: "400px",
+  width: "100%",
+  height: "100vh",
 };
 
 const center = {
@@ -35,35 +37,54 @@ function Map() {
     });
   });
 
-  console.log(eqpLastState);
+  const [openDialog, setOpenDialog] = React.useState(false);
+
+  const handleCloseDialog = () => {
+    setOpenDialog(false);
+  };
+
+  const [equipHistory, setEquipHistory] = React.useState("");
 
   return isLoaded ? (
-    <GoogleMap mapContainerStyle={containerStyle} center={center} zoom={12}>
-      {eqpLastState.map((eqp, i) => (
-        <Marker
-          key={i}
-          position={{
-            lat: eqp.lat,
-            lng: eqp.lon,
-          }}
-          options={{
-            icon: {
-              url:
-                eqp.state.lastState.id ===
-                "baff9783-84e8-4e01-874b-6fd743b875ad"
-                  ? "http://maps.google.com/mapfiles/ms/icons/yellow-dot.png"
-                  : eqp.state.lastState.id ===
-                    "03b2d446-e3ba-4c82-8dc2-a5611fea6e1f"
-                  ? "http://maps.google.com/mapfiles/ms/icons/red-dot.png"
-                  : eqp.state.lastState.id ===
-                    "0808344c-454b-4c36-89e8-d7687e692d57"
-                  ? "http://maps.google.com/mapfiles/ms/icons/green-dot.png"
-                  : null,
-            },
-          }}
-        />
-      ))}
-    </GoogleMap>
+    <>
+      <GoogleMap mapContainerStyle={containerStyle} center={center} zoom={11}>
+        {eqpLastState.map((eqp, i) => (
+          <Marker
+            onClick={() => {
+              setOpenDialog(true);
+              setEquipHistory(getEquipmentLastStates(eqp.state.equipment));
+            }}
+            key={i}
+            position={{
+              lat: eqp.lat,
+              lng: eqp.lon,
+            }}
+            options={{
+              icon: {
+                url:
+                  eqp.state.lastState.id ===
+                  "baff9783-84e8-4e01-874b-6fd743b875ad"
+                    ? "http://maps.google.com/mapfiles/ms/icons/yellow-dot.png"
+                    : eqp.state.lastState.id ===
+                      "03b2d446-e3ba-4c82-8dc2-a5611fea6e1f"
+                    ? "http://maps.google.com/mapfiles/ms/icons/red-dot.png"
+                    : eqp.state.lastState.id ===
+                      "0808344c-454b-4c36-89e8-d7687e692d57"
+                    ? "http://maps.google.com/mapfiles/ms/icons/green-dot.png"
+                    : null,
+              },
+            }}
+          />
+        ))}
+        {
+          <HistoryEquipmentDialog
+            open={openDialog}
+            close={handleCloseDialog}
+            eqp={equipHistory}
+          />
+        }
+      </GoogleMap>
+    </>
   ) : (
     <></>
   );

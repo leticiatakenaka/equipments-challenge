@@ -40,28 +40,49 @@ export function HistoryEquipmentDialog(props) {
                 {props.eqp.list
                   .slice(0)
                   .reverse()
-                  .map((history, i) => (
+                  .map((histEqp, i) => (
                     <MU.TableRow
                       key={i}
-                      sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                      sx={{
+                        "&:last-child td, &:last-child th": { border: 0 },
+                      }}
+                      style={
+                        i === 0
+                          ? {
+                              backgroundColor: histEqp.color,
+                            }
+                          : {}
+                      }
                     >
-                      <MU.TableCell component="th" scope="row">
-                        {history.name}
+                      <MU.TableCell
+                        style={
+                          i === 0
+                            ? {
+                                fontWeight: "bold",
+                              }
+                            : {}
+                        }
+                        component="th"
+                        scope="row"
+                      >
+                        {histEqp.name}
                       </MU.TableCell>
-                      <MU.TableCell>{formatDate(history.date)}</MU.TableCell>
+                      <MU.TableCell
+                        style={
+                          i === 0
+                            ? {
+                                fontWeight: "bold",
+                              }
+                            : {}
+                        }
+                      >
+                        {formatDate(histEqp.date)}
+                      </MU.TableCell>
                     </MU.TableRow>
                   ))}
               </MU.TableBody>
             </MU.Table>
           </MU.TableContainer>
-          {/* {props.eqp.list
-            .slice(0)
-            .reverse()
-            .map((history, i) => (
-              <MU.DialogContentText key={i} id="alert-dialog-slide-description">
-                {`${history.name} => ${formatDate(history.date)}`}
-              </MU.DialogContentText>
-            ))} */}
         </MU.DialogContent>
       </MU.Dialog>
     </div>

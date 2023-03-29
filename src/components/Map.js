@@ -9,6 +9,7 @@ import { getEquipmentsLastPosition } from "./getEquipmentsLastPosition";
 import { getEquipmentLastState } from "./getEquipmentLastState";
 import { getEquipmentLastStates } from "./getEquipmentHistory";
 import { HistoryEquipmentDialog } from "./HistoryEquipmentDialog";
+import { getEquipment } from "./getEquipment";
 
 const containerStyle = {
   width: "100%",
@@ -26,8 +27,8 @@ function Map() {
     googleMapsApiKey: apiKey,
   });
 
-  const equipamentos = equipmentPositionHistoryFile;
-  const eqpPositions = getEquipmentsLastPosition(equipamentos);
+  const equipments = equipmentPositionHistoryFile;
+  const eqpPositions = getEquipmentsLastPosition(equipments);
 
   let eqpLastState = [];
 
@@ -38,7 +39,6 @@ function Map() {
       state: getEquipmentLastState(eqp.equipment.equipmentId),
     });
   });
-
   const [openDialog, setOpenDialog] = React.useState(false);
 
   const handleCloseDialog = () => {
@@ -46,6 +46,7 @@ function Map() {
   };
 
   const [equipHistory, setEquipHistory] = React.useState("");
+  const [eqpDetails, setEqpDetails] = React.useState("");
 
   return isLoaded ? (
     <>
@@ -55,6 +56,7 @@ function Map() {
             onClick={() => {
               setOpenDialog(true);
               setEquipHistory(getEquipmentLastStates(eqp.state.equipment));
+              setEqpDetails(getEquipment(eqp.state.equipment));
             }}
             key={i}
             position={{
@@ -83,6 +85,7 @@ function Map() {
             open={openDialog}
             close={handleCloseDialog}
             eqp={equipHistory}
+            details={eqpDetails}
           />
         }
       </GoogleMap>

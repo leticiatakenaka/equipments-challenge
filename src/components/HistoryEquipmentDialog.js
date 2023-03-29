@@ -26,7 +26,9 @@ export function HistoryEquipmentDialog(props) {
         aria-describedby="alert-dialog-slide-description"
         style={{ marginTop: "30%" }}
       >
-        <MU.DialogTitle>{props.details.name}</MU.DialogTitle>
+        <MU.DialogTitle>
+          {`${props.details.name} - ${props.details.model.name}`}
+        </MU.DialogTitle>
         <MU.DialogContent>
           <MU.TableContainer component={MU.Paper}>
             <MU.Table sx={{ minWidth: 300 }} aria-label="simple table">

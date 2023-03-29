@@ -27,7 +27,6 @@ export function getEquipmentLastStates(equipmentId) {
     equipment: equipmentId,
     list: list,
   };
-  console.log(retEquipment);
 
   return retEquipment;
 }

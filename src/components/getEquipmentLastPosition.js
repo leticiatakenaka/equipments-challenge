@@ -25,6 +25,5 @@ export function getEquipmentLastPosition(equipmentId) {
     equipment: equipmentId,
     lastPosition: lastPosition,
   };
-
   return retEquipment;
 }

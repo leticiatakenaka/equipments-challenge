@@ -47,7 +47,7 @@ function Map() {
 
   return isLoaded ? (
     <>
-      <GoogleMap mapContainerStyle={containerStyle} center={center} zoom={10}>
+      <GoogleMap mapContainerStyle={containerStyle} center={center} zoom={11}>
         {eqpLastState.map((eqp, i) => (
           <Marker
             onClick={() => {

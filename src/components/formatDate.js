@@ -7,6 +7,5 @@ export function formatDate(dt) {
   const min = date.getUTCMinutes().toString().padStart(2, "0");
   const formated_date = `${dd}/${mm}/${yyyy} ${hh}:${min}`;
 
-  console.log(formated_date);
   return formated_date;
 }
